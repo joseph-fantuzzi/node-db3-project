@@ -12,7 +12,7 @@ const checkSchemeId = async (req, res, next) => {
   try {
     const { id } = req.params;
     const scheme = await Schemes.findById(id);
-    if (scheme) {
+    if (scheme.length) {
       req.scheme = scheme;
       next();
     } else {

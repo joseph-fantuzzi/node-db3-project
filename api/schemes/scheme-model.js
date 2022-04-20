@@ -27,7 +27,7 @@ function find() {
     .count("st.step_id as number_of_steps");
 }
 
-function findById(scheme_id) {
+async function findById(scheme_id) {
   // EXERCISE B
   /*
     1B- Study the SQL query below running it in SQLite Studio against `data/schemes.db3`:
@@ -94,6 +94,19 @@ function findById(scheme_id) {
         "steps": []
       }
   */
+
+  //    return db("schemes as sc")
+  //  .leftJoin("steps as st", "sc.scheme_id", "st.scheme_id")
+  //  .groupBy("sc.scheme_id")
+  //  .orderBy("sc.scheme_id", "asc")
+  //  .select("sc.*")
+  //  .count("st.step_id as number_of_steps");
+
+  return db("schemes")
+    .leftJoin("steps", "schemes.scheme_id", "steps.scheme_id")
+    .select("schemes.scheme_name", "steps.*")
+    .where({ "schemes.scheme_id": scheme_id })
+    .orderBy("steps.step_number", "asc");
 }
 
 function findSteps(scheme_id) {
