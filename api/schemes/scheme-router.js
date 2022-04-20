@@ -52,8 +52,13 @@ router.get("/", (req, res, next) => {
     ]
   }
 */
-router.get("/:scheme_id", checkSchemeId, (req, res) => {
-  res.status(200).json(req.scheme);
+router.get("/:scheme_id", checkSchemeId, async (req, res, next) => {
+  try {
+    const scheme = await Schemes.findById(req.scheme.scheme_id);
+    res.status(200).json(scheme);
+  } catch (err) {
+    next(err);
+  }
 });
 
 /*
