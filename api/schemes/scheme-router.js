@@ -76,9 +76,7 @@ router.get("/:scheme_id", checkSchemeId, (req, res) => {
   ]
 */
 router.get("/:scheme_id/steps", checkSchemeId, (req, res, next) => {
-  const { scheme_id } = req.params;
-
-  Schemes.findSteps(scheme_id)
+  Schemes.findSteps(req.scheme.scheme_id)
     .then((steps) => {
       res.json(steps);
     })
@@ -95,9 +93,7 @@ router.get("/:scheme_id/steps", checkSchemeId, (req, res, next) => {
   }
 */
 router.post("/", validateScheme, (req, res, next) => {
-  const scheme = req.body;
-
-  Schemes.add(scheme)
+  Schemes.add(req.newScheme)
     .then((scheme) => {
       res.status(201).json(scheme);
     })
@@ -124,10 +120,7 @@ router.post("/", validateScheme, (req, res, next) => {
   ]
 */
 router.post("/:scheme_id/steps", checkSchemeId, validateStep, (req, res, next) => {
-  const step = req.body;
-  const { scheme_id } = req.params;
-
-  Schemes.addStep(scheme_id, step)
+  Schemes.addStep(req.scheme.scheme_id, req.step)
     .then((allSteps) => {
       res.status(201).json(allSteps);
     })
