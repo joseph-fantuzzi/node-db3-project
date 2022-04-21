@@ -26,7 +26,7 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
   Schemes.find()
     .then((schemes) => {
-      res.json(schemes);
+      res.status(200).json(schemes);
     })
     .catch(next);
 });
@@ -83,7 +83,7 @@ router.get("/:scheme_id", checkSchemeId, async (req, res, next) => {
 router.get("/:scheme_id/steps", checkSchemeId, (req, res, next) => {
   Schemes.findSteps(req.scheme.scheme_id)
     .then((steps) => {
-      res.json(steps);
+      res.status(200).json(steps);
     })
     .catch(next);
 });

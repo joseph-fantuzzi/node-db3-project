@@ -55,8 +55,10 @@ const validateStep = (req, res, next) => {
   const { instructions, step_number } = req.body;
   if (
     !instructions ||
+    instructions === undefined ||
     instructions === "" ||
     typeof instructions !== "string" ||
+    typeof step_number !== "number" ||
     isNaN(step_number) ||
     step_number < 1
   ) {
